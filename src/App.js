@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Users from "./components/Users";
+import AllUsers from "./components/AllUsers";
 import Addform from "./components/Addform";
 import { Row, Col, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,6 +13,19 @@ function App() {
     });
   };
 
+  const editUser = (user, id) => {
+    setUsers((prev) =>
+      prev.map((item) => {
+        if (item.id === id) return user;
+        return item;
+      })
+    );
+  };
+
+  const deleteItem = (id) => {
+    setUsers((prev) => prev.filter((item) => item.id !== id));
+  };
+
   return (
     <Container style={{ marginTop: "30px" }}>
       <Row>
@@ -21,7 +34,7 @@ function App() {
         </Col>
 
         <Col>
-          <Users users={users} />
+          <AllUsers users={users} deleteItem={deleteItem} editUser={editUser} />
         </Col>
       </Row>
     </Container>

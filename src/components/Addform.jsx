@@ -11,10 +11,14 @@ function Addform({addUsers}) {
     const items = {
       name: name,
       email: email,
-      gen:gen
+      gen: gen,
+      id: Math.floor(Math.random()*1000)
     }
     e.preventDefault();
     addUsers(items)
+    setName('')
+    setEmail('')
+    setGen('')
   }
   
  return (
