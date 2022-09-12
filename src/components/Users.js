@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
 import EditUser from "./EditUser";
+import { useDispatch } from "react-redux";
+import { deleteUser } from "../action";
 
 function Users({ users, deleteItem, editUser, user }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteUser(user.id));
+    console.log(user);
+  };
 
   return (
     <>
-      {/* {users.map((user, index) => { */}
-
       <div key={user.id}>
         <Modal show={show} onHide={handleClose}>
           <Modal.Body>
@@ -31,7 +37,7 @@ function Users({ users, deleteItem, editUser, user }) {
               Email: {user.email}
             </Card.Subtitle>
             <Card.Text>Gen: {user.gen}</Card.Text>
-            <Button variant="primary" onClick={() => deleteItem(user.id)}>
+            <Button variant="primary" onClick={handleDelete}>
               Delete
             </Button>{" "}
             <Button variant="primary" onClick={handleShow}>
@@ -40,8 +46,6 @@ function Users({ users, deleteItem, editUser, user }) {
           </Card.Body>
         </Card>
       </div>
-
-      {/* })} */}
     </>
   );
 }

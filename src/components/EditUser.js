@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { editUser } from "../action";
+import { useDispatch } from "react-redux";
 
-function EditUser({ user, handleClose, editUser }) {
+function EditUser({ user, handleClose }) {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [gen, setGen] = useState(user.gen);
+  const dispatch = useDispatch();
+
+  // const editUser = (id, user) => {
+  //   return { type: "EDIT_USER", payload: { id, user } };
+  // };
 
   const handleClick = (e) => {
     const items = {
@@ -14,7 +21,10 @@ function EditUser({ user, handleClose, editUser }) {
       id: Math.floor(Math.random() * 1000),
     };
     e.preventDefault();
-    editUser(items, user.id);
+    // editUser(items, user.id);
+
+    // dispatch({ type: "EDIT_USER", payload: { id: user.id, user: items } });
+    dispatch(editUser(user.id, items));
     handleClose();
   };
   return (
