@@ -4,6 +4,11 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setUsers } from "../action";
 import { v4 as uuid } from "uuid";
+import { db } from "./firebase/config";
+// import { addDoc, setDoc, set, collection } from "firebase/firestore";
+import { doc, setDoc, collection, addDoc } from "firebase/firestore";
+
+// Add a new document with a generated id.
 
 function Addform({ addUsers }) {
   const [name, setName] = useState("");
@@ -12,15 +17,22 @@ function Addform({ addUsers }) {
 
   const dispatch = useDispatch();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     const items = {
       name: name,
       email: email,
       gen: gen,
       id: new Date().getTime().toLocaleString(),
     };
+    // e.preventDefault();
+    // dispatch(setUsers(items));
+
     e.preventDefault();
-    dispatch(setUsers(items));
+    try {
+      const docRef = await setDoc(doc(db, "users", items.id), items);
+    } catch (error) {
+      console.log(error);
+    }
     // addUsers(items)
     setName("");
     setEmail("");

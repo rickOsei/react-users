@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 
 function AllUsers({ users, deleteItem, editUser }) {
   const storeUsers = useSelector((state) => state.storeUsers);
+  const modal = useSelector((state) => state.modal);
+
   return (
     <>
       {storeUsers.map((user, index) => {
@@ -23,7 +25,8 @@ function AllUsers({ users, deleteItem, editUser }) {
 }
 
 // const mapState = (state) => {
+//   console.log(state);
 //   return state.storeUsers;
 // };
-// export default connect(mapState)(AllUsers);
+//export default connect(mapState)(AllUsers);
 export default AllUsers;

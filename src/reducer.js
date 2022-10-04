@@ -1,11 +1,12 @@
 const initialState = {
   storeUsers: [],
+  modal: false,
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case "USERS":
-      return { ...state, storeUsers: [...state.storeUsers, action.payload] };
+      return { ...state, storeUsers: action.payload };
     case "DELETE_USER":
       return {
         ...state,

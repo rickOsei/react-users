@@ -13,14 +13,14 @@ function EditUser({ user, handleClose }) {
   //   return { type: "EDIT_USER", payload: { id, user } };
   // };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     const items = {
       name: name,
       email: email,
       gen: gen,
       id: Math.floor(Math.random() * 1000),
     };
-    e.preventDefault();
+
     // editUser(items, user.id);
 
     // dispatch({ type: "EDIT_USER", payload: { id: user.id, user: items } });
