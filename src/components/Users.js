@@ -3,6 +3,8 @@ import { Card, Button, Modal } from "react-bootstrap";
 import EditUser from "./EditUser";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../action";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "./firebase/config";
 
 function Users({ users, deleteItem, editUser, user }) {
   const [show, setShow] = useState(false);
@@ -11,9 +13,10 @@ function Users({ users, deleteItem, editUser, user }) {
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteUser(user.id));
-    console.log(user);
+  const handleDelete = async () => {
+    // dispatch(deleteUser(user.id));
+    // console.log(user);
+    await deleteDoc(doc(db, "users", user.id));
   };
 
   return (

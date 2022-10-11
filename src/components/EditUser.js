@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { editUser } from "../action";
 import { useDispatch } from "react-redux";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "./firebase/config";
 
 function EditUser({ user, handleClose }) {
   const [name, setName] = useState(user.name);
@@ -18,13 +20,18 @@ function EditUser({ user, handleClose }) {
       name: name,
       email: email,
       gen: gen,
-      id: Math.floor(Math.random() * 1000),
+      id: new Date().getTime().toLocaleString(),
     };
+    console.log(user);
 
     // editUser(items, user.id);
 
     // dispatch({ type: "EDIT_USER", payload: { id: user.id, user: items } });
-    dispatch(editUser(user.id, items));
+    // dispatch(editUser(user.id, items));
+    const docRef = doc(db, "users", user.id);
+
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(docRef, items);
     handleClose();
   };
   return (
